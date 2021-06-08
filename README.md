@@ -18,3 +18,6 @@
 - List everything "ls -a" or "ls"
 - To see the content of the file on the terminal "cat file_name"
 - Clear your screen "clear"
+
+- Delete a folder "rm -rf name_of_the_folder"
+- Delete a file "rm name_of_the_file"
