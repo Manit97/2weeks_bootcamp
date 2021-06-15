@@ -48,13 +48,35 @@
 ### Bash Script
 #!/bin/bash
 
--sudo apt-get update -y 
--sudo apt-get upgrade-y
--sudo apt-get install nginx
--sudo systemctl restart nginx
--sudo apt-get install nodejs -y 
--sudo apt-get install python-software-properties 
--curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
--sudo apt-get install nodejs -y
--sudo npm install pm2 -g
--npm install
+- sudo apt-get update -y 
+- sudo apt-get upgrade-y
+- sudo apt-get install nginx
+- sudo systemctl restart nginx
+- sudo apt-get install nodejs -y 
+- sudo apt-get install python-software-properties 
+- curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+- sudo apt-get install nodejs -y
+- sudo npm install pm2 -g
+- npm install
+
+### App Instance Vm
+- sudo chmod 400 devop_bootcamp.pem (in your .ssh folder)
+- ssh -i "devop_bootcamp.pem" ubuntu@ec2-{I-P}.eu-west-1.compute.amazonaws.com (To ssh into the app vm)
+- sudo scp -i ~/.ssh/devop_bootcamp.pem -r app/ ubuntu@ec2-54-78-10-214.eu-west-1.compute.amazonaws.com:/home/ubuntu/ (to transfer app folder to app vm from .ssh folder)
+- cd /etc/nginx/sites-available (and edit default file for reverse proxy)
+-server {
+-        listen 80;
+-        server_name _;
+-        location / {
+-                proxy_pass http://54.78.10.214:3000;
+-                proxy_http_version 1.1;
+-                proxy_set_header Upgrade $http_upgrade;
+-                proxy_set_header Connection 'upgrade';
+-                proxy_set_header Host $host;
+-                proxy_cache_bypass $http_upgrade;
+-        }
+- } 
+- Above Code goes in the default file. 
+- In app/seeds and run the seed file with ‘node seed.js’ (To make posts work)
+
+
